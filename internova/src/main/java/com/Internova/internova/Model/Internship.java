@@ -27,6 +27,8 @@ public class Internship {
 
     private String location;
 
+    private String salary;
+
     public Long getId() {
         return id;
     }
@@ -97,5 +99,13 @@ public class Internship {
 
     public void setSkillsRequired(String skillsRequired) {
         this.skillsRequired = skillsRequired;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
     }
 }
