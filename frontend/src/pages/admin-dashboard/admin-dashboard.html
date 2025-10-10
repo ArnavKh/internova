@@ -1,0 +1,103 @@
+<div class="dashboard-container">
+  <h1>Admin Dashboard</h1>
+
+  <button class="add-btn" (click)="openAddInternship()">+ Add Internship</button>
+
+  <table class="internship-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Company</th>
+        <th>Location</th>
+        <th>Duration</th>
+        <th>Eligibility</th>
+        <th>Salary</th>
+        <th>Deadline</th>
+        <th>Skills</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let internship of internships">
+        <td>{{ internship.role }}</td>
+        <td>{{ internship.companyName }}</td>
+        <td>{{ internship.location }}</td>
+        <td>{{ internship.duration }}</td>
+        <td>{{ internship.eligibility }}</td>
+        <td>{{ internship.salary }}</td>
+        <td>{{ internship.deadline | date:'mediumDate' }}</td>
+        <td>{{ internship.skillsRequired }}</td>
+        <td>
+          <button class="view-applicants-btn" (click)="viewInternship(internship.id)">
+            View Applicants
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="showAddForm" class="popup-overlay">
+    <div class="popup">
+      <form (ngSubmit)="addInternship()">
+        <h2>Add Internship</h2>
+
+        <input type="text" placeholder="Role" [(ngModel)]="newInternship.role" name="role" required />
+        <input type="text" placeholder="Company Name" [(ngModel)]="newInternship.companyName" name="companyName"
+          required />
+        <input type="text" placeholder="Location" [(ngModel)]="newInternship.location" name="location" required />
+        <input type="text" placeholder="Duration (e.g. 3 months)" [(ngModel)]="newInternship.duration"
+          name="duration" />
+        <input type="text" placeholder="Eligibility (e.g. B.Tech, MBA)" [(ngModel)]="newInternship.eligibility"
+          name="eligibility" />
+        <input type="text" placeholder="Salary / Stipend" [(ngModel)]="newInternship.salary" name="salary" />
+        <input type="date" [(ngModel)]="newInternship.deadline" name="deadline" />
+        <input type="text" placeholder="Skills Required (comma separated)" [(ngModel)]="newInternship.skillsRequired"
+          name="skillsRequired" />
+        <textarea placeholder="Description" [(ngModel)]="newInternship.description" name="description"></textarea>
+
+        <div class="popup-buttons">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="button" class="cancel-btn" (click)="showAddForm = false">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="showApplicantsPopup" class="popup-overlay">
+    <div class="popup">
+      <h2>Applicants for {{ selectedInternship?.role }}</h2>
+
+      <table class="applicants-table" *ngIf="applicants.length > 0; else noApplicants">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Resume</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let applicant of applicants">
+            <td>{{ applicant.name }}</td>
+            <td>{{ applicant.email }}</td>
+            <td>
+              <button class="view-btn" (click)="openResume(applicant.resumeUrl)">View Resume</button>
+            </td>
+            <td>
+              <button class="save-btn" (click)="selectApplicant(applicant)">Accept</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <ng-template #noApplicants>
+        <p>No applicants yet for this internship.</p>
+      </ng-template>
+
+      <div class="popup-buttons">
+        <button type="button" class="cancel-btn" (click)="closeApplicantsPopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

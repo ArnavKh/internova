@@ -1,0 +1,78 @@
+<div class="dashboard-container">
+  <h1>Intern Dashboard</h1>
+
+  <table class="internship-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Company</th>
+        <th>Location</th>
+        <th>Duration</th>
+        <th>Eligibility</th>
+        <th>Salary</th>
+        <th>Deadline</th>
+        <th>Skills</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let internship of internships">
+        <td>{{ internship.role }}</td>
+        <td>{{ internship.companyName }}</td>
+        <td>{{ internship.location }}</td>
+        <td>{{ internship.duration }}</td>
+        <td>{{ internship.eligibility }}</td>
+        <td>{{ internship.salary }}</td>
+        <td>{{ internship.deadline | date:'mediumDate' }}</td>
+        <td>{{ internship.skillsRequired }}</td>
+        <td>
+          <button class="apply-btn" (click)="openApplyForm(internship)">Apply</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="showApplyForm" class="popup-overlay">
+    <div class="popup">
+      <form (ngSubmit)="submitApplication()" #resumeForm="ngForm">
+        <h2>Apply for {{ selectedInternship?.role }}</h2>
+
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="applicantName"
+          placeholder="Enter your full name"
+          required
+        />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="applicantEmail"
+          placeholder="Enter your email address"
+          required
+        />
+
+        <label for="resume">Upload Resume (PDF/DOC)</label>
+        <input
+          type="file"
+          id="resume"
+          (change)="onFileSelected($event)"
+          accept=".pdf,.doc,.docx"
+          required
+        />
+
+        <div class="popup-buttons">
+          <button type="submit" class="save-btn" [disabled]="!selectedFile || !applicantName || !applicantEmail">
+            Submit
+          </button>
+          <button type="button" class="cancel-btn" (click)="closeApplyForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

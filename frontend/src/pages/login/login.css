@@ -1,0 +1,71 @@
+.login-wrapper {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+.tabs button:hover {
+  background-color: #e1efff;
+  color: black;
+}
+
+.tabs button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-container input {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-container button {
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
