@@ -1,0 +1,98 @@
+package com.Internova.internova.Controller;
+
+import com.Internova.internova.Model.Application;
+import com.Internova.internova.Model.Internship;
+import com.Internova.internova.Repository.ApplicationRepository;
+import com.Internova.internova.Repository.InternshipRepository;
+import com.Internova.internova.Service.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
+@RestController
+@RequestMapping("/applications")
+@CrossOrigin("*")
+public class ApplicationController {
+
+    @Autowired
+    private ApplicationService applicationService;
+
+    @Autowired
+    private InternshipRepository internshipRepository;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    // ✅ Apply for Internship (Upload Resume)
+    @PostMapping("/apply")
+    public ResponseEntity<Application> applyForInternship(
+            @RequestParam("studentName") String studentName,
+            @RequestParam("email") String email,
+            @RequestParam("coverLetter") String coverLetter,
+            @RequestParam("internshipId") Long internshipId,
+            @RequestParam(value = "resume", required = false) MultipartFile resumeFile) {
+
+        try {
+            String resumePath = null;
+
+            // ✅ Save uploaded resume to "uploads/resumes/"
+            if (resumeFile != null && !resumeFile.isEmpty()) {
+                String baseDir = System.getProperty("user.dir") + File.separator + "uploads" + File.separator + "resumes" + File.separator;
+                File dir = new File(baseDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                resumePath = baseDir + resumeFile.getOriginalFilename();
+                resumeFile.transferTo(new File(resumePath));
+            }
+
+            // ✅ Create new application
+            Application application = new Application();
+            application.setStudentName(studentName);
+            application.setEmail(email);
+            application.setCoverLetter(coverLetter);
+            application.setResumePath(resumePath);
+            application.setStatus("Applied");
+
+            // ✅ Fetch internship from database instead of dummy reference
+            Internship internship = internshipRepository.findById(internshipId)
+                    .orElseThrow(() -> new RuntimeException("Internship not found"));
+            application.setInternship(internship);
+
+            // ✅ Save application
+            Application savedApp = applicationService.saveApplication(application);
+            return ResponseEntity.ok(savedApp);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    // ✅ Get all applications for a specific internship (for supervisor view)
+    @GetMapping("/internship/{internshipId}")
+    public ResponseEntity<?> getApplicationsByInternship(@PathVariable Long internshipId) {
+        try {
+            return ResponseEntity.ok(applicationService.getApplicationsByInternship(internshipId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error retrieving applications.");
+        }
+    }
+
+    // ✅ Update application status (Accept / Reject)
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Application> updateApplicationStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+        try {
+            Application updated = applicationService.updateStatus(id, status);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+}
