@@ -47,13 +47,11 @@ export class AdminDashboard implements OnInit {
     this.loadInternships();
   }
 
-  // Load all internships from backend
   loadInternships() {
     this.http.get<Internship[]>("http://localhost:8089/admin/internships/all")
       .subscribe(data => this.internships = data);
   }
 
-  // Show Add Internship form
   openAddInternship() {
     this.showAddForm = true;
   }
