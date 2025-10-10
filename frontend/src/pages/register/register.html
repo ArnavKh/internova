@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+  <div class="tabs">
+    <button [class.active]="activeTab === 'intern'" (click)="setTab('intern')">Intern Register</button>
+    <button [class.active]="activeTab === 'admin'" (click)="setTab('admin')">Admin/Faculty Register</button>
+    <button [class.active]="activeTab === 'supervisor'" (click)="setTab('supervisor')">Supervisor Register</button>
+  </div>
+
+  <div class="form-container">
+
+    <form *ngIf="activeTab === 'intern'" (ngSubmit)="registerIntern()">
+      <h2>Intern Registration</h2>
+      <input type="text" placeholder="Full Name" [(ngModel)]="intern.name" name="internName" required />
+      <input type="email" placeholder="Email" [(ngModel)]="intern.email" name="internEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="intern.password" name="internPassword" required />
+      <button type="submit">Register</button>
+      <button type="button" class="alt-btn" (click)="goToLogin()">Already have an account? Login</button>
+    </form>
+
+    <form *ngIf="activeTab === 'admin'" (ngSubmit)="registerAdmin()">
+      <h2>Admin/Faculty Registration</h2>
+      <input type="text" placeholder="Full Name" [(ngModel)]="admin.name" name="adminName" required />
+      <input type="email" placeholder="Email" [(ngModel)]="admin.email" name="adminEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="admin.password" name="adminPassword" required />
+      <button type="submit">Register</button>
+      <button type="button" class="alt-btn" (click)="goToLogin()">Already have an account? Login</button>
+    </form>
+
+    <form *ngIf="activeTab === 'supervisor'" (ngSubmit)="registerSupervisor()">
+      <h2>Supervisor Registration</h2>
+      <input type="text" placeholder="Full Name" [(ngModel)]="supervisor.name" name="supervisorName" required />
+      <input type="email" placeholder="Email" [(ngModel)]="supervisor.email" name="supervisorEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="supervisor.password" name="supervisorPassword" required />
+      <button type="submit">Register</button>
+      <button type="button" class="alt-btn" (click)="goToLogin()">Already have an account? Login</button>
+    </form>
+
+  </div>
+</div>

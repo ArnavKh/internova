@@ -1,0 +1,47 @@
+<div class="login-wrapper">
+  <div class="tabs">
+    <button [class.active]="activeTab === 'intern'" (click)="setTab('intern')">Intern Login</button>
+    <button [class.active]="activeTab === 'admin'" (click)="setTab('admin')">Admin/Faculty Login</button>
+    <button [class.active]="activeTab === 'supervisor'" (click)="setTab('supervisor')">Supervisor Login</button>
+  </div>
+
+  <div class="form-container">
+
+    <!-- Intern Login -->
+    <form *ngIf="activeTab === 'intern'" (ngSubmit)="internLogin()">
+      <h2>Intern Login</h2>
+      <input type="email" placeholder="Email" [(ngModel)]="intern.email" name="internEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="intern.password" name="internPassword" required />
+      <button type="submit">Login</button>
+
+      <button type="button" class="register-btn" (click)="goToRegister()">
+        Register
+      </button>
+    </form>
+
+    <!-- Admin Login -->
+    <form *ngIf="activeTab === 'admin'" (ngSubmit)="adminLogin()">
+      <h2>Admin/Faculty Login</h2>
+      <input type="email" placeholder="Email" [(ngModel)]="admin.email" name="adminEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="admin.password" name="adminPassword" required />
+      <button type="submit">Login</button>
+
+      <button type="button" class="register-btn" (click)="goToRegister()">
+        Register
+      </button>
+    </form>
+
+    <form *ngIf="activeTab === 'supervisor'" (ngSubmit)="supervisorLogin()">
+      <h2>Supervisor Login</h2>
+      <input type="email" placeholder="Email" [(ngModel)]="supervisor.email" name="supervisorEmail" required />
+      <input type="password" placeholder="Password" [(ngModel)]="supervisor.password" name="supervisorPassword"
+        required />
+      <button type="submit">Login</button>
+
+      <button type="button" class="register-btn" (click)="goToRegister()">
+        Register
+      </button>
+    </form>
+
+  </div>
+</div>
