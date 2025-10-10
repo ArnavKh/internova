@@ -50,7 +50,7 @@ export class AdminDashboard implements OnInit {
 
   // Load all internships from backend
   loadInternships() {
-    this.http.get<Internship[]>("/")
+    this.http.get<Internship[]>("http://localhost:8089/admin/internships/all")
       .subscribe(data => this.internships = data);
   }
 
@@ -61,7 +61,7 @@ export class AdminDashboard implements OnInit {
 
   // Add internship via API
   addInternship() {
-    this.http.post<Internship>("/admin/internships/add", this.newInternship)
+    this.http.post<Internship>("http://localhost:8089/admin/internships/add", this.newInternship)
       .subscribe({
         next: (data) => {
           this.internships.push(data);
