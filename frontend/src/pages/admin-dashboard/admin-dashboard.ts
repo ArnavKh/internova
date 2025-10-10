@@ -11,7 +11,6 @@ interface Internship {
   duration: string;
   eligibility: string;
   salary: string;
-  deadline: string;
   skillsRequired: string;
   description: string;
   about: string;

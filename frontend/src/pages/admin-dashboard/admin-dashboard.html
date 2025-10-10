@@ -25,7 +25,6 @@
         <td>{{ internship.duration }}</td>
         <td>{{ internship.eligibility }}</td>
         <td>{{ internship.salary }}</td>
-        <td>{{ internship.deadline | date:'mediumDate' }}</td>
         <td>{{ internship.skillsRequired }}</td>
         <td>
           <button class="view-applicants-btn" (click)="viewInternship(internship.id)">
@@ -52,7 +51,6 @@
         <input type="text" placeholder="Eligibility (e.g. B.Tech, MBA)" [(ngModel)]="newInternship.eligibility"
           name="eligibility" />
         <input type="text" placeholder="Salary / Stipend" [(ngModel)]="newInternship.salary" name="salary" />
-        <input type="date" [(ngModel)]="newInternship.deadline" name="deadline" />
         <input type="text" placeholder="Skills Required (comma separated)" [(ngModel)]="newInternship.skillsRequired"
           name="skillsRequired" />
         <textarea placeholder="Description" [(ngModel)]="newInternship.description" name="description"></textarea>
