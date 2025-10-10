@@ -39,6 +39,7 @@ public class InternshipService {
             internship.setSkillsRequired(internship.getSkillsRequired());
             internship.setEligibility(internship.getEligibility());
             internship.setLocation(internship.getLocation());
+            internship.setSalary(internship.getSalary());
             return internshipRepository.save(internship);
         }).orElseThrow(() -> new RuntimeException("Internship Not Found with ID: " + id));
     }
