@@ -17,26 +17,30 @@ export class LoginComponent {
   supervisor = { email: '', password: '' };
   activeTab: 'intern' | 'admin' | 'supervisor' = 'intern';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   setTab(tab: 'intern' | 'admin' | 'supervisor') {
     this.activeTab = tab;
   }
 
   internLogin() {
-    this.http.post('http://localhost:8080/api/intern/login', this.intern)
+    this.http.post('http://localhost:8089/students/login', this.intern)
       .subscribe(() => this.router.navigate(['/intern']));
   }
 
   adminLogin() {
-    this.http.post('http://localhost:8080/api/admin/login', this.admin)
+    this.http.post('http://localhost:8089/admin/login', this.admin)
       .subscribe(() => this.router.navigate(['/admin']));
   }
 
   supervisorLogin() {
-    this.http.post('http://localhost:8080/api/supervisor/login', this.supervisor)
-      .subscribe(() => this.router.navigate(['/supervisor']));
+    this.http.post('http://localhost:8089/supervisor/login', this.supervisor)
+      .subscribe({
+        next: () => this.router.navigate(['/admin']),
+        error: () => alert('Invalid credentials')
+      });
   }
+
 
   goToRegister() {
     this.router.navigate(['/register']);

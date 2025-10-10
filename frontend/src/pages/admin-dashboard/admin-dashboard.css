@@ -147,3 +147,81 @@ h1 {
 .popup-buttons button {
   min-width: 80px;
 }
+
+/* Add Internship Form Inputs */
+.popup form input,
+.popup form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+.popup form input:focus,
+.popup form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+  outline: none;
+}
+
+/* Placeholder Styling */
+.popup form input::placeholder,
+.popup form textarea::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Description textarea height */
+.popup form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Buttons inside the popup */
+.popup-buttons .save-btn,
+.popup-buttons .cancel-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.popup-buttons .save-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.popup-buttons .cancel-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 650px) {
+  .popup {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .popup form input,
+  .popup form textarea {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .popup-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .popup-buttons button {
+    width: 100%;
+  }
+}

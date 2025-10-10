@@ -1,5 +1,4 @@
 import 'zone.js';
-
 import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app';
 import { provideRouter } from '@angular/router';

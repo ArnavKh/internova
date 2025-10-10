@@ -3,35 +3,43 @@ package com.Internova.internova.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+import java.util.List;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // disable CSRF for now to allow POST from Postman
+                .csrf(csrf -> csrf.disable()) // disable CSRF globally (for dev)
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // allow H2 iframe
                 .authorizeHttpRequests(auth -> auth
-                        // ✅ allow access to H2 console
-                        .requestMatchers(toH2Console()).permitAll()
-
-                        // ✅ allow public access to admin endpoints for testing
-                        .requestMatchers("/admin/**").permitAll()
-
-                        // everything else needs authentication (for later)
+                        .requestMatchers("/h2-console/**").permitAll()      // allow H2 console
+                        .requestMatchers("/admin/**").permitAll()           // allow admin login
+                        .requestMatchers("/supervisor/**").permitAll()      // allow supervisor login
                         .anyRequest().authenticated()
                 )
-                // allow H2 console frames
-                .headers(headers -> headers.frameOptions().sameOrigin())
-
-                // enable basic authentication for secure endpoints
-                .httpBasic();
+                .cors(cors -> {}); // CORS is handled via CorsConfigurationSource bean
 
         return http.build();
+    }
+
+    // Global CORS configuration
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Angular URL
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }

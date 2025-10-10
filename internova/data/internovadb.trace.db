@@ -562,3 +562,6 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 100 more
+2025-10-10 23:06:19.698180+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM ADMIN APPLICATION [*]ADMIN"; SQL statement:
+SELECT * FROM ADMIN APPLICATION ADMIN [42000-232]
