@@ -11,6 +11,9 @@
       <h2>Intern Registration</h2>
       <input type="text" placeholder="Full Name" [(ngModel)]="intern.name" name="internName" required />
       <input type="email" placeholder="Email" [(ngModel)]="intern.email" name="internEmail" required />
+      <input type="text" placeholder="Academic Year" [(ngModel)]="intern.academicYear" name="academicYear" required />
+      <input type="text" placeholder="University" [(ngModel)]="intern.universtiy" name="university" required />
+      <input type="text" placeholder="Course" [(ngModel)]="intern.course" name="course" required />
       <input type="password" placeholder="Password" [(ngModel)]="intern.password" name="internPassword" required />
       <button type="submit">Register</button>
       <button type="button" class="alt-btn" (click)="goToLogin()">Already have an account? Login</button>

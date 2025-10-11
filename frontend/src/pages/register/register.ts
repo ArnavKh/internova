@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   activeTab: 'intern' | 'admin' | 'supervisor' = 'intern';
 
-  intern = { name: '', email: '', password: '' };
+  intern = { name: '', email: '', password: '', course: '', universtiy: '', academicYear: '' };
   admin = { name: '', email: '', password: '' };
   supervisor = { name: '', email: '', password: '' };
 

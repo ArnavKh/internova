@@ -26,8 +26,6 @@ public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    @Autowired
-    private NotificationService notificationService;
 
     // ✅ Apply for Internship (Upload Resume + Send Notification + Email)
     @PostMapping("/apply")
@@ -66,12 +64,6 @@ public class ApplicationController {
 
             Application savedApp = applicationService.saveApplication(application);
 
-            // ✅ Create notification for supervisor/admin
-            notificationService.createNotification(
-                    studentName + " has applied for the internship: " + internship.getRole(),
-                    "SUPERVISOR",
-                    internship.getId() // assuming internship-supervisor mapping is based on ID
-            );
 
             return ResponseEntity.ok(savedApp);
 

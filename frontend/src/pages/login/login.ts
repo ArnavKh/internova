@@ -24,9 +24,15 @@ export class LoginComponent {
   }
 
   internLogin() {
-    this.http.post('http://localhost:8089/students/login', this.intern)
+    const email = this.intern.email;
+    const password = this.intern.password;
+
+    const url = `http://localhost:8089/students/login/${email}/${password}`;
+
+    this.http.post(url, {})
       .subscribe(() => this.router.navigate(['/intern']));
   }
+
 
   adminLogin() {
     this.http.post('http://localhost:8089/admin/login', this.admin)
