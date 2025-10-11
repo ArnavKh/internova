@@ -25,7 +25,7 @@ export class RegisterComponent {
   }
 
   registerIntern() {
-    this.http.post('http://localhost:8080/api/intern/register', this.intern)
+    this.http.post('http://localhost:8089/students/register', this.intern)
       .subscribe(() => {
         alert('Intern registered successfully!');
         this.router.navigate(['/login']);
