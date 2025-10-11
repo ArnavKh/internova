@@ -26,7 +26,6 @@ public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    // ✅ Apply for Internship (Upload Resume + Send Notification + Email)
     @PostMapping("/apply")
     public ResponseEntity<Application> applyForInternship(
             @RequestParam("studentName") String studentName,
@@ -71,7 +70,6 @@ public class ApplicationController {
         }
     }
 
-    // ✅ Get all applications for a specific internship (for supervisor/admin)
     @GetMapping("/internship/{internshipId}")
     public ResponseEntity<?> getApplicationsByInternship(@PathVariable Long internshipId) {
         try {

@@ -36,7 +36,6 @@ public class AdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //Update Admin
     @PutMapping("/update/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin adminDetails) {
         try {
@@ -47,14 +46,12 @@ public class AdminController {
         }
     }
 
-    //Delete Admin
     @DeleteMapping("/delete/{id}")
     public String deleteAdmin(@PathVariable Long id) {
         adminService.deleteByAdmin(id);
         return "Admin Deleted by id: " + id;
     }
 
-    //Login
     @PostMapping("/login")
     public ResponseEntity<Admin> login(@RequestBody Admin admin) {
         Admin loggedInAdmin = adminService.login(admin.getEmail(), admin.getPassword());
