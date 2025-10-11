@@ -107,7 +107,6 @@ h1 {
   background-color: #c82333;
 }
 
-/* Popup overlay */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -148,7 +147,6 @@ h1 {
   min-width: 80px;
 }
 
-/* Add Internship Form Inputs */
 .popup form input,
 .popup form textarea {
   width: 100%;
@@ -168,20 +166,17 @@ h1 {
   outline: none;
 }
 
-/* Placeholder Styling */
 .popup form input::placeholder,
 .popup form textarea::placeholder {
   color: #aaa;
   font-style: italic;
 }
 
-/* Description textarea height */
 .popup form textarea {
   min-height: 80px;
   resize: vertical;
 }
 
-/* Buttons inside the popup */
 .popup-buttons .save-btn,
 .popup-buttons .cancel-btn {
   padding: 8px 16px;
@@ -203,7 +198,6 @@ h1 {
   transform: translateY(-1px);
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 650px) {
   .popup {
     width: 90%;

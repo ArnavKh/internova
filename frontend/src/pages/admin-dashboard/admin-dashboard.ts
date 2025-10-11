@@ -56,7 +56,6 @@ export class AdminDashboard implements OnInit {
     this.showAddForm = true;
   }
 
-  // Add internship via API
   addInternship() {
     this.http.post<Internship>("http://localhost:8089/admin/internships/add", this.newInternship)
       .subscribe({
@@ -73,7 +72,6 @@ export class AdminDashboard implements OnInit {
       });
   }
 
-  // View applicants for selected internship
   viewInternship(id: number) {
     this.http.get<Applicant[]>("${this.baseUrl}/${id}/applicants")
       .subscribe({
@@ -89,14 +87,12 @@ export class AdminDashboard implements OnInit {
       });
   }
 
-  // Close applicants popup
   closeApplicantsPopup() {
     this.showApplicantsPopup = false;
     this.selectedInternship = null;
     this.applicants = [];
   }
 
-  // Select applicant via API
   selectApplicant(applicant: Applicant) {
     if (!this.selectedInternship) return;
 
@@ -117,7 +113,6 @@ export class AdminDashboard implements OnInit {
       });
   }
 
-  // Open applicant resume in new tab
   openResume(resumeUrl: string) {
     window.open(resumeUrl, '_blank');
   }

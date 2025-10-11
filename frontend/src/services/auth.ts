@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private BASE_URL = 'http://localhost:8080/api'; // Spring Boot URL
+  private BASE_URL = 'http://localhost:8089/';
 
   constructor(private http: HttpClient) {}
 

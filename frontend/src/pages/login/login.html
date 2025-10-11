@@ -7,7 +7,6 @@
 
   <div class="form-container">
 
-    <!-- Intern Login -->
     <form *ngIf="activeTab === 'intern'" (ngSubmit)="internLogin()">
       <h2>Intern Login</h2>
       <input type="email" placeholder="Email" [(ngModel)]="intern.email" name="internEmail" required />
@@ -19,7 +18,6 @@
       </button>
     </form>
 
-    <!-- Admin Login -->
     <form *ngIf="activeTab === 'admin'" (ngSubmit)="adminLogin()">
       <h2>Admin/Faculty Login</h2>
       <input type="email" placeholder="Email" [(ngModel)]="admin.email" name="adminEmail" required />

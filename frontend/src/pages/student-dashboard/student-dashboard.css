@@ -171,7 +171,6 @@ h1 {
   box-sizing: border-box;
 }
 
-/* Textarea */
 .popup textarea {
   resize: vertical;
   min-height: 80px;
