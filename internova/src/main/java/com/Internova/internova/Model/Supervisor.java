@@ -12,10 +12,10 @@ public class Supervisor {
 
     private String name;
     private String email;
-    private String password;  // for login
-    private String organization; // University or Company name
-    private String roleType; // "University Supervisor" or "Company Supervisor"
-    private String department; // optional, for academic supervisors
+    private String password;
+    private String organization;
+    private String roleType;
+    private String department;
 
     // Getters & Setters
     public Long getId() { return id; }

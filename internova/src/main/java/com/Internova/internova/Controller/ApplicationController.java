@@ -37,7 +37,6 @@ public class ApplicationController {
         try {
             String resumePath = null;
 
-            // ✅ Save uploaded resume to "uploads/resumes/"
             if (resumeFile != null && !resumeFile.isEmpty()) {
                 String baseDir = System.getProperty("user.dir") + File.separator + "uploads" + File.separator + "resumes" + File.separator;
                 File dir = new File(baseDir);
@@ -47,11 +46,9 @@ public class ApplicationController {
                 resumeFile.transferTo(new File(resumePath));
             }
 
-            // ✅ Fetch internship from database
             Internship internship = internshipRepository.findById(internshipId)
                     .orElseThrow(() -> new RuntimeException("Internship not found"));
 
-            // ✅ Create and save application
             Application application = new Application();
             application.setStudentName(studentName);
             application.setEmail(email);

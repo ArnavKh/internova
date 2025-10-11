@@ -49,7 +49,6 @@ public class AssignmentService {
         return assignmentRepository.findAll();
     }
 
-    // ✅ New method
     public List<Assignment> getAssignmentsBySupervisor(Long supervisorId) {
         return assignmentRepository.findBySupervisorId(supervisorId);
     }

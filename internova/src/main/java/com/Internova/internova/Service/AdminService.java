@@ -13,27 +13,22 @@ public class AdminService {
     @Autowired
     public AdminRepository adminRepository;
 
-    //Create or update admin
     public Admin saveAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
-    //Get all admins
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
 
-    //Get Admin by ID
     public Optional<Admin> getAdminById(Long id) {
         return adminRepository.findById(id);
     }
 
-    //Delete admin by id
     public void deleteByAdmin(Long id) {
         adminRepository.deleteById(id);
     }
 
-    //Update Admin Details
     public Admin updateAdmin(Long id, Admin adminDetails) {
         return adminRepository.findById(id).map(admin -> {
             admin.setName(adminDetails.getName());
@@ -42,12 +37,11 @@ public class AdminService {
         }).orElseThrow(() -> new RuntimeException("Admin not found with id: " + id));
     }
 
-    //Login
     public Admin login(String email, String password) {
         Admin admin = adminRepository.findByEmail(email);
         if (admin != null && admin.getPassword().equals(password)) {
             return admin;
         }
-        return null; // login failed
+        return null;
     }
 }
