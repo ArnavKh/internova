@@ -26,7 +26,10 @@ public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    // ✅ Apply for Internship (Upload Resume)
+    @Autowired
+    private NotificationService notificationService;
+
+    // ✅ Apply for Internship (Upload Resume + Send Notification + Email)
     @PostMapping("/apply")
     public ResponseEntity<Application> applyForInternship(
             @RequestParam("studentName") String studentName,
@@ -48,21 +51,28 @@ public class ApplicationController {
                 resumeFile.transferTo(new File(resumePath));
             }
 
-            // ✅ Create new application
+            // ✅ Fetch internship from database
+            Internship internship = internshipRepository.findById(internshipId)
+                    .orElseThrow(() -> new RuntimeException("Internship not found"));
+
+            // ✅ Create and save application
             Application application = new Application();
             application.setStudentName(studentName);
             application.setEmail(email);
             application.setCoverLetter(coverLetter);
             application.setResumePath(resumePath);
             application.setStatus("Applied");
-
-            // ✅ Fetch internship from database instead of dummy reference
-            Internship internship = internshipRepository.findById(internshipId)
-                    .orElseThrow(() -> new RuntimeException("Internship not found"));
             application.setInternship(internship);
 
-            // ✅ Save application
             Application savedApp = applicationService.saveApplication(application);
+
+            // ✅ Create notification for supervisor/admin
+            notificationService.createNotification(
+                    studentName + " has applied for the internship: " + internship.getRole(),
+                    "SUPERVISOR",
+                    internship.getId() // assuming internship-supervisor mapping is based on ID
+            );
+
             return ResponseEntity.ok(savedApp);
 
         } catch (Exception e) {
@@ -71,7 +81,7 @@ public class ApplicationController {
         }
     }
 
-    // ✅ Get all applications for a specific internship (for supervisor view)
+    // ✅ Get all applications for a specific internship (for supervisor/admin)
     @GetMapping("/internship/{internshipId}")
     public ResponseEntity<?> getApplicationsByInternship(@PathVariable Long internshipId) {
         try {
@@ -79,20 +89,6 @@ public class ApplicationController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error retrieving applications.");
-        }
-    }
-
-    // ✅ Update application status (Accept / Reject)
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Application> updateApplicationStatus(
-            @PathVariable Long id,
-            @RequestParam String status) {
-        try {
-            Application updated = applicationService.updateStatus(id, status);
-            return ResponseEntity.ok(updated);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
         }
     }
 }
