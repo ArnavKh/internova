@@ -14,7 +14,7 @@ public class Application {
     private String resumePath;
     private String coverLetter;
 
-    private String status = "Applied"; // Applied | Accepted | Rejected
+    private String status = "Applied";
 
     @ManyToOne
     @JoinColumn(name = "internship_id")

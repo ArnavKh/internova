@@ -8,7 +8,7 @@ public class Assignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status = "In Progress"; // In Progress | Completed
+    private String status = "In Progress";
 
     @ManyToOne
     @JoinColumn(name = "student_id")

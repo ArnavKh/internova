@@ -40,7 +40,6 @@ public class DashboardController {
         List<Assignment> assigned = assignmentRepository.findBySupervisorId(supervisorId);
         data.put("assignedCount", assigned.size());
 
-        // basic summary of assigned students
         List<Map<String, Object>> students = assigned.stream().map(a -> {
             Map<String, Object> m = new HashMap<>();
             Application app = a.getStudentApplication();
@@ -68,10 +67,8 @@ public class DashboardController {
     public ResponseEntity<Map<String, Object>> getStudentDashboard(@PathVariable Long studentId) {
         Map<String, Object> data = new HashMap<>();
 
-        // find student (optional)
         Optional<Student> studentOpt = studentRepository.findById(studentId);
 
-        // find applications by email if student exists, else empty list
         List<Application> applications = Collections.emptyList();
         if (studentOpt.isPresent()) {
             String email = studentOpt.get().getEmail();

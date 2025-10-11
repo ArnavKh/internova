@@ -20,7 +20,6 @@ public class InternshipService {
         return internshipRepository.save(internship);
     }
 
-    //Get all internship companies
     public List<Internship> getAllInternships() {
         return internshipRepository.findAll();
     }
