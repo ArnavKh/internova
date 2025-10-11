@@ -20,11 +20,4 @@ public class ApplicationService {
     public List<Application> getApplicationsByInternship(Long internshipId) {
         return applicationRepository.findByInternshipId(internshipId);
     }
-
-    public Application updateStatus(Long id, String status) {
-        Application app = applicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Application not found"));
-        app.setStatus(status);
-        return applicationRepository.save(app);
-    }
 }

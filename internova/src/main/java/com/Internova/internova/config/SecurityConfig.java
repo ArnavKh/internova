@@ -16,24 +16,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // disable CSRF globally (for dev)
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // allow H2 iframe
+                .csrf(csrf -> csrf.disable()) // disable CSRF for development
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // allow H2 console
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll()      // allow H2 console
-                        .requestMatchers("/admin/**").permitAll()           // allow admin login
-                        .requestMatchers("/supervisor/**").permitAll()      // allow supervisor login
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/supervisor/**").permitAll()
+                        .requestMatchers("/students/**").permitAll()  // ✅ allow student endpoints
+                        .requestMatchers("/applications/**").permitAll() // optional if you test apply
+                        .requestMatchers("/internships/**").permitAll() // optional if viewing listings
                         .anyRequest().authenticated()
                 )
-                .cors(cors -> {}); // CORS is handled via CorsConfigurationSource bean
+                .cors(cors -> {}); // Enable CORS
 
         return http.build();
     }
 
-    // Global CORS configuration
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200")); // Angular URL
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Angular frontend
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

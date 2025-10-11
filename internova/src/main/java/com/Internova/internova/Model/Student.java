@@ -16,6 +16,17 @@ public class Student {
     private String academicYear;
     private String university;
 
+    public Student() {}
+
+    public Student(String name, String email, String password, String course, String year, String university) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.course = course;
+        this.academicYear = year;
+        this.university = university;
+    }
+
     public Long getId() {
         return id;
     }
