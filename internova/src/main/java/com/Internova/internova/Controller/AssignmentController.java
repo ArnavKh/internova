@@ -32,7 +32,6 @@ public class AssignmentController {
         return ResponseEntity.ok(saved);
     }
 
-    // ✅ New endpoint
     @GetMapping("/supervisor/{supervisorId}")
     public ResponseEntity<List<Assignment>> getAssignmentsBySupervisor(@PathVariable Long supervisorId) {
         List<Assignment> assignments = assignmentService.getAssignmentsBySupervisor(supervisorId);

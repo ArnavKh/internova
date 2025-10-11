@@ -16,7 +16,6 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    // 🧾 Register Student
     @PostMapping("/register")
     public ResponseEntity<Student> registerStudent(@RequestBody Student student) {
         try {
@@ -27,7 +26,6 @@ public class StudentController {
         }
     }
 
-    // 🔐 Login Student
     @PostMapping("/login")
     public ResponseEntity<?> loginStudent(@RequestParam String email, @RequestParam String password) {
         try {
@@ -38,13 +36,11 @@ public class StudentController {
         }
     }
 
-    // 📋 Get all students
     @GetMapping("/all")
     public ResponseEntity<List<Student>> getAllStudents() {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
-    // 🔍 Get student by ID
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id)
@@ -52,7 +48,6 @@ public class StudentController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ❌ Delete Student
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);

@@ -18,38 +18,32 @@ public class SupervisorController {
     @Autowired
     private SupervisorService supervisorService;
 
-    // Add Supervisor
     @PostMapping("/add")
     public ResponseEntity<Supervisor> addSupervisor(@RequestBody Supervisor supervisor) {
         return ResponseEntity.ok(supervisorService.addSupervisor(supervisor));
     }
 
-    // Get All Supervisors
     @GetMapping("/all")
     public ResponseEntity<List<Supervisor>> getAllSupervisors() {
         return ResponseEntity.ok(supervisorService.getAllSupervisors());
     }
 
-    // Get by ID
     @GetMapping("/{id}")
     public ResponseEntity<Supervisor> getSupervisorById(@PathVariable Long id) {
         return ResponseEntity.ok(supervisorService.getSupervisorById(id));
     }
 
-    // Update Supervisor
     @PutMapping("/update/{id}")
     public ResponseEntity<Supervisor> updateSupervisor(@PathVariable Long id, @RequestBody Supervisor updatedSupervisor) {
         return ResponseEntity.ok(supervisorService.updateSupervisor(id, updatedSupervisor));
     }
 
-    // Delete Supervisor
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSupervisor(@PathVariable Long id) {
         supervisorService.deleteSupervisor(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Login
     @PostMapping("/login")
     public ResponseEntity<Supervisor> login(@RequestBody Supervisor supervisor) {
         Supervisor loggedIn = supervisorService.login(supervisor.getEmail(), supervisor.getPassword());
